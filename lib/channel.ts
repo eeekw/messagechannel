@@ -19,13 +19,23 @@ export default class MessageChannel {
     }
   }
 
-  async call(message: MChannelEvent) {
+  async process(message: MChannelEvent) {
     if (!message.name) {
       return
     }
+
+    let callback
+    const name = message.options["callback"]
+    if (name) {
+      callback = {
+        name,
+        arguments: {},
+        options: {}
+      }
+    }
     const context: MChannelContext = {
       event: message,
-      callback: message.options["callback"] ?? null
+      callback
     }
     const fn = compose(this.middlewares)
     try {
@@ -37,5 +47,9 @@ export default class MessageChannel {
     } catch (error) {
       
     }
+  }
+
+  call(message: MChannelEvent) {
+    this.process(message)
   }
 }
