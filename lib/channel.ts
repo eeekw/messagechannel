@@ -1,8 +1,9 @@
-import compose, { MChannelMiddleware } from "./compose";
+import compose, { MChannelMiddleware, MChannelMiddlewareNext } from "./compose";
 import { MChannelContext, MChannelEvent } from "./context";
 import MChannelMessage from "./message";
 
-type Middleware = MChannelMiddleware<MChannelContext>
+export type Middleware = MChannelMiddleware<MChannelContext>
+export type MiddlewareNext = MChannelMiddlewareNext<MChannelContext>
 
 export default class MessageChannel {
 

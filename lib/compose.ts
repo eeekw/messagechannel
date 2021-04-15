@@ -1,4 +1,5 @@
-export type MChannelMiddleware<T> = (context: T, next: (context: T) => Promise<T>) => Promise<T> | T
+export type MChannelMiddleware<T> = (context: T, next: MChannelMiddlewareNext<T>) => Promise<T> | T
+export type MChannelMiddlewareNext<T> = (context: T) => Promise<T>
 
 export default function compose<T extends any = any>(fns: MChannelMiddleware<T>[]) {
   return function (context:T) {
